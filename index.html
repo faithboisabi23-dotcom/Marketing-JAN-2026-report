@@ -1,0 +1,2537 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Doctor Referral Performance – January 2026</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+
+<body>
+    <header class="hero">
+        <div class="container hero-content">
+            <div>
+                <h1>Doctor Referral Performance – January 2026</h1>
+                <p>Full dataset (2,472 rows)</p>
+            </div>
+            <img class="logo" src="assets/sonar-logo.png" alt="Sonar logo" />
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="exec-summary">
+            <h2>Executive Summary</h2>
+            <div class="summary-card">
+                <div class="summary-grid">
+                    <div>
+                        <h4>Total Unique Patients</h4>
+                        <p id="summaryUniquePatients">1951</p>
+                    </div>
+                    <div>
+                        <h4>Total Referring Doctors</h4>
+                        <p id="summaryDoctors">534</p>
+                    </div>
+                    <div>
+                        <h4>% Patients from &gt;5 Referrals</h4>
+                        <p id="summaryPctHigh">0%</p>
+                    </div>
+                    <div>
+                        <h4>% Doctors with &gt;5 Referrals</h4>
+                        <p id="summaryPareto">N/A</p>
+                    </div>
+                </div>
+                <p class="insight insight--summary" id="summaryInsight">12.7% of referring doctors generated more than five unique referrals and contributed 64.4% of total patient volume.</p>
+            </div>
+        </section>
+
+        <section class="kpi-section">
+            <h2>KPI Overview</h2>
+            <div class="kpis">
+                <div class="kpi">
+                    <h3>Number of Patients</h3>
+                    <p id="kpiTotalPatients">2472</p>
+                </div>
+                <div class="kpi">
+                    <h3>Number of Referring Doctors</h3>
+                    <p id="kpiTotalDoctors">534</p>
+                </div>
+                <div class="kpi">
+                    <h3>Unique Patients</h3>
+                    <p id="kpiUniquePatients">1951</p>
+                </div>
+            </div>
+            <div class="kpis kpis--small">
+                <div class="kpi kpi--small">
+                    <h3>Total Duplicate Patient Records</h3>
+                    <p id="kpiDuplicateRecords">0</p>
+                </div>
+                <div class="kpi kpi--small">
+                    <h3>% Duplicate Patients</h3>
+                    <p id="kpiDuplicatePct">0%</p>
+                </div>
+                <div class="kpi kpi--small">
+                    <h3>% Doctors with Duplicate Patients</h3>
+                    <p id="kpiDoctorDuplicatePct">0%</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Doctors with More Than 5 Unique Referrals</h2>
+            <div class="chart-wrap">
+                <canvas id="doctorChart" class="chart"></canvas>
+            </div>
+            <p class="insight">Insight: These consistently active doctors form the core referral network and should be prioritized for retention and relationship management.</p>
+        </section>
+
+        <section>
+            <h2>Doctors with 5 or Fewer Unique Referrals</h2>
+            <p class="insight">Insight: The low-volume group indicates broad coverage but limited depth; targeted
+                outreach can shift doctors above the &gt;5 threshold.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Referring Doctor</th>
+                            <th>Marketer</th>
+                            <th>Unique Patients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UPPERHILL GASTRO CLINIC</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUTISO</td>
+                            <td>N/A</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR MBURU P.M (CAPITAL ENT)</td>
+                            <td>N/A</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>ALLIANCE HOSPITAL</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR SNK WAWERU</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR BOORE JOHN KIRIMO</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR PETER OCHUNGO</td>
+                            <td>STELLA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>COPTIC HOSPITAL</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOTURI GEORGE (FORTIS KIDNEY)</td>
+                            <td>LYDIA</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>PROF GAKUU (MENELIC HOSPITAL)</td>
+                            <td>N/A</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>DR DAN KIPTOON</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR BWANA OMBACHI</td>
+                            <td>LYDIA/STELLA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>PROF TIMOTHY K. BYAKIKA</td>
+                            <td>STELLA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR DANIEL GITARI</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR BARONGO</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>HIFU (CO. MAINA NGOIGO)</td>
+                            <td>GRACE</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR ODONGO CALISTO</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOGIRE TOM (T.S)</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR LABAN NATWATI (EABL)</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR OKWIRI</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR OIDAME TOBIKO</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR MAUREEN OGANGA</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIBOI JULIUS GITHINJI</td>
+                            <td>STELLA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR MAILU JEFF</td>
+                            <td>N/A</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR CHAKAYA JEREMIAH MUHWA</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR BRIDGIT MONDA</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA NGONG ROAD</td>
+                            <td>GRACE</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR GIKENYE GICHAMBIRA</td>
+                            <td>LYDIA</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>DR KWASA JUDITH</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - GREENHOUSE</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUGWE PETER</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>ST. STEFANI WOMEN</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>BAHATI IMAGING</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>CITY EYE CLINIC</td>
+                            <td>GRACE</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MERIDIAN MEDICAL CENTRE</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MR. OLUOCH D OLUNYA</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>PROF AMAYO ERASTUS</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>PROF OJUKA DANIEL KINYURU</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>METROPOLITAN HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MEGALIFE HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MIRAZI</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR AMENGE JAMES</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>FORTIS HEALTHCARE CENTRE</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR MWANGI FRANCIS (F)</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NELLY BOSIRE</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGAYU GODFREY</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUGENDI FLAVIO MUTIRIA</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNGUTI CECILIA</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR JANE KARIOKI</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NYAGA SAMUEL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR FARAJ ALKIM O</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR SOPHIE GITONGA</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR CARNJINI YOGESWARAN</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR WACHIRA SAMUEL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANJIKU KAGIMA</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR WARUGONGO KIONI</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR AFULO GEORGE OMONDI (G.O)</td>
+                            <td>LYDIA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MAMA LUCY HOSPITAL</td>
+                            <td>FELIX</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR BARACK ONGULO</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR BARGORIA VICTOR</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR ATONI JARED</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR AYO S. ONYANGO AYO (S.O)</td>
+                            <td>STELLA</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>METROCARE HEALTH CLINIC</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>MERIDIAN HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR KATO RONALD</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NJOGU PAUL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR LILIAN WANGUI</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGUGI PAUL</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR NOEL MANDI</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>DR MONDA BRIDGIT</td>
+                            <td>N/A</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>KIJABE HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>KAREN HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR ALICE MUNENE</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR ALEX NDUNGU</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>JANICE MEDICAL AND CANCER HOSP</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR ANNE MAINA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>LA FEMME</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>KLINIC REVERSA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MUNENE</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MO. TUMBO</td>
+                            <td>GRACE</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>PROF GAKUU</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MR. QURESHI MOHAMMED</td>
+                            <td>STELLA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MR. MULIRA JOSPHAT</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>BEN AMI</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>BSR</td>
+                            <td>STELLA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>SHREE SWAMINARAYAN</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>ST. MARYS LANGATA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>ST. FRANCIS - KASARANI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MARIA IMMACULATE - ZACHARY</td>
+                            <td>GRACE</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>LONDON DIALYSIS</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>MAXIVISION HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI SCULP</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>RFH</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>PRIDE CLINIC</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA - UPERHILL</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR WERE FRANCIS</td>
+                            <td>GRACE</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIRAGU DAVID</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGIGI JOHN</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR PRIMUS OCHIENG</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR PETER O. OYIRO</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAGIRI MAINGI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAGURI S. KANJA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAGIMA WANJIKU</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR SHEIKH ABDIFATAH</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR TYABALI HUSSEIN</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR WABWIRE SILVANUS</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR GLADWEL KIARIE</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR ZACHARY NYABUTI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANYIKA HANNA WANGUI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR ERICK HUNGU</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANGUI LILIAN</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR WAFULA J. MASIKA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUHINDI WANJUGU</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGUCHU HELLEN</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGUGI NANCY</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MATU JOSHUA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MANDI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIGEN BARTILOL</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR OCHUNGO PETER</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NYAMU MURITHI</td>
+                            <td>LYDIA</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MWENDWA FLORENCE</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NDIRITU ANTHONY</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR NDUNGU ALEX</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MURIGI</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MULWA</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUIGAI PATRICK MARARO</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>THE IVF CENTRE - NOREH</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>AVENUE HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - SARIT</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>TAVETA MEDICARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CALLEN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BRISTOL PARK</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BOSIRE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BHATTI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BETTER LIVING</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BETHANYKIDS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BARASA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>BAGWASSI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - BURUBURU</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AVENUE HEALTH CARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AUGUSTUS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ATHEMBO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF PETER MUNGAI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF MUNGAI PETER NDUNGU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF JOWI MARK</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF JOSHUA KAYIMA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNGUTI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNGAI NGUGI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNENE PETER (NGUGI)</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNENE PETER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUNENE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MULIRA MERCY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUKII FLORENCE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUIGI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUGWE ALEX</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUGU ARTHUR</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>TOBIKO</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THUO</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THE NAIROBI WOMEN'S HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THE MEDHAT GYNAECOLOGY & CANCER CENTER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THE HEART NEBULA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THE BONE AND JOINT CLINIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUCHIRA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOKOMBA ALFRED</td>
+                            <td>GRACE INDICATED KONYA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOHAMMED EZZ</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOGERE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MOGAKA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MESCHACH ASIMBA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MBURU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MBUGUA PATRICK</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MBAKA STEVE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NDEGWA MWENDA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NDEGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NATWATI LABAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUTUA MARTIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUTINDA JACKSON</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MUSAU CHRISTOPHER KYALO (CK)</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MURUKA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OCHANDA MBUYA</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NZAMU IRENE/NDIRITU</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NYALE GEORGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MBAKA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MATIVO PETER MUTISYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MARTIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR MARK MURERWA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAHUHO CHRISTOPHER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KYALO SAMMY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KURIA RICHARD</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NYACHAE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGURE/NGUMBI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGUMUTA (EABL)</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGUMUTA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGOLOBE MATILDA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR NGETICH GILBERT</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR PETER KIMATHI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR PAVIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OYIENGO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KRISTIN AWORI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KITUNGUU PETER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIRAITU MURIUNGI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIOKO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KINOTI NDEGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KIMANI GICHERU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR GWAKO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OMORO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OMONDI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OMAR AHMED</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OKETCH VIOLET</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OKELLO ALEX</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ODIDI KENDO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ROSE KIARIE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KATO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KARUME MICHAEL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KARUGA MARTIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KARARI SUSAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KARANJA MIRIAM</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KARANGA KIMANI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAMAU EDNA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAMAU EABL</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR KAISHA WYCLIFF</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ERIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ROBERT MATHENGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR REHEMA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR REGAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR RAVJIT SAGOO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR RASIK KANTARIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR JOHN KAZOYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR JOHN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR JIVANJI HUSSEIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR JAMES</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR JACKSON</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR IRENE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BRIGID MONDA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR GITONGA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SUSAN KARANJA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR STEVEN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR STEVE KARANJA (KITENGELA WEST)</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SANKEI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SAMUEL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SAMMY KYALO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SALOME WAWERU</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR RUGURU NYAGA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR GATOBU KAWIRA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR GATIMU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR FRANCIS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR EVELYNE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR EUGENE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR AMANYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANGECI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WAMUTITU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR THOMAS KWASA</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR THINWA WAHINYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR THIKRA SHARIF</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR THIKRA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR OYIRO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR THAGANA N. FRANK</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR TALENG</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SYLVIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQA LANGATA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EMBASY HOSPITAL</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ELIUD</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ELIJAH MURAGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ELIJAH</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EDWARD</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EDMOND</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EDELVALE TRUST</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR YUSSUF MOHAMED</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WYCLLIFFE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WEKESA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WASUNNA ANTHONY</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANYOIKE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANJIRU ROSEMARY</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR WANJIKU KARIMI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR GITARI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>FRANCIS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EVELYNE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EVANS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR EDITH</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR DIGILAI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR DAVID LIVINGSTONE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR COLLINS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BUKUSI DAVID</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BUKACHI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BOORE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ESHIWANI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA KAHAWA SUKARI</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA GITHURAI</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA ATHI RIVER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA - UPPERHILL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>EQUITY AFIA - KAWANGARE</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HEART HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HCG</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HAWA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HASHI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HANAA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HALISI FAMILY HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HALISI FAMILY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GREENMONT MEDICAL CENTRE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GODFREY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GEORGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GATOBU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GATABAKI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GASTRO HUB</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GARDEN CITY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>GACHAMA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>FRED</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JEFF WARUI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BENJAMIN NDELEVA</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR BAYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ANTONY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ANNE PULEI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CATHERINE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ALEX MUTURI</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>IVORY NDEGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>IRUNGU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>IDYORO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>IDRIS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HUSSEIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HURLINGHAM FAMILY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HUNAV</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HENRY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>HEATHGATE HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KGOMOTSO LOUISA MOGAPI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KENNETH</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KENEDY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KEMRI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KELVIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KELLY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KEHENYA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KASMANI AW</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KARUGA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KANYIRI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KAMBUNI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JULIANA MUIVA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JOSEPH BASARGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JOSEPH</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JOAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>JESSE KAY HOSP</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MACHUMA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>LOISE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>LIONS SIGHT FIRST EYE HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>LEONARD</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>LEILA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>LANGATA HOSPITAL</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KOSGEI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KOLLIE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KILIMANI CHILDRENS CLINIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KIDNEY CARE AFRICA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KIDANE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KIBUCHI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KIBET</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KIAMBU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KHAMALA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>KHAEMBA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ABDULLAHI ISSACK</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DIAMOND ENT</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DENNIS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DEKOW</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DAVID KIRAGU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DAVID KIMANI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DANNAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DANIEL ZURIEL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DANIEL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AWITI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>COLUMBIA AFRICA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CO. NYOTA</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MAIRO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MAINA KIAMBU DOCTORS</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MAHENDRA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MAGHARIBI SPECIALIST</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MULTIMEDIA UNIVERSITY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MULI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUKAMI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUKAINDU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUIVA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MO. WINNIE</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MIRIAM</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MESHAT HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MENELIK ENT CLINIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MEGA LIFE HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MEDINA HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MCHOMBA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MAUREEN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MARINA HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MANDUKU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR ABWAO HENRY OTIENO</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAKITARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI WOMEN HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI WEST HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI SOUTH HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI EYE HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NAIROBI ENT</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NADIMER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MYER KIDNEY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MWENGA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MWAURA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUTHUKA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUSTAFA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUSAU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUREITHI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MURANGA LEVEL 5</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>MUNSHI ASTER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CANCER CARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PLASTIC AND AESTHETIC SURGERY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PENDA MEEDICAL CENTRE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PAUL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PALAVI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OUT SPAN HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OTIEGO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OOKO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OLEWE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OKUMU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>OKILI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NORAH</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NOONKOPIR - KITENGELA MEDICAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NEERAJ KRISHNAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NEERAI KRISHNAN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>NDERITU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF ELLY OGUTU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF EKWOM ETAU</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PROF ADWOK JOHN ADIENG</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CO. JIVANJII HUSSEIN</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CO. ANTONY NGONGA</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CK CHACHA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHIRCHIR</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHILDREN CLINIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHERONO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHEMMO</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHEGE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHEBET</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHARLES WANGUI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CHARLES</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CAPITAL ENT CLINIC</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CAPITAL ENT</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - NGONG</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>VALLEY MEDICAL CLINIC</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>RUKIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>UON</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ST. PAUL'S HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ST PAULS KITENGELA - MUNYOKI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ST MARYS LANGATA</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>SOUTH B HOSPITAL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>SEVENTH AVENUE MEDICAL CENTRE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>SAMPLE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>SAADIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>REFINE SURGERY</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>RAYHAAN HEALTHCARE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>RADIANT GROUP OF HOSP</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PUNEET</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>CALVARY HILL</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>THAIRU</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>TEXAS CANCER CENTRE</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - CITY CENTRE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - EMBAKASI</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>TABIA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>STRATHMORE MEDICAL CENTER</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ASWANI</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ARTHUR</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ARAKA</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ANNE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ANN WERE</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ANK WOMENS CLINIC</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ANDREW</td>
+                            <td>N/A</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>ACHARYA</td>
+                            <td>STELLA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>VIRAL B SHAH</td>
+                            <td>GRACE</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>AAR HEALTHCARE - SYOKIMAU</td>
+                            <td>LYDIA</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>DR SITNA ALI MWANZI</td>
+                            <td>LYDIA</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="exec-summary">
+            <h2>Strategic Implications &amp; Action Focus</h2>
+            <div class="summary-card">
+                <ul class="exec-list">
+                    <li>Implement a standardized doctor name entry process (full, consistent names at marketer or billing level) to eliminate duplicates and ensure accurate referral reporting.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            Generated for GitHub Pages
+            <div class="footnote">Note: Marketer attribution excluded due to incomplete data capture.</div>
+        </div>
+    </footer>
+
+    <script>
+        const doctorLabels = ["NAIROBI SPINE \u2014 N/A", "KENYATTA NATIONAL HOSPITAL \u2014 LYDIA", "DR NGARE STANLEY \u2014 LYDIA", "PROF OYOO OMONDI \u2014 LYDIA", "DR EDNA KAMAU \u2014 LYDIA", "SELF \u2014 N/A", "DR EGLAY MUKABANA \u2014 N/A", "DR RAJESH CHAUDHARY \u2014 N/A", "DR NDEGE KINOTI \u2014 LYDIA", "UNKNOWN \u2014 N/A", "DR OBURU EZEKIEL \u2014 N/A", "KQ MEDICAL CENTRE \u2014 LYDIA", "DR IKOL ADUNGO \u2014 STELLA", "DR KARANU JOSEPH \u2014 LYDIA", "DR KINYANJUI DAVID G \u2014 LYDIA", "DR SAMUEL WACHIRA \u2014 LYDIA", "DR OWENDE PHILOMENA \u2014 LYDIA", "PROF ATINGA JOHN E.O \u2014 STELLA", "COL. (DR) ADARI GEORGE \u2014 STELLA", "MO. BISHAR ALI \u2014 LYDIA", "DR MACHIRA \u2014 N/A", "DR MUGAMBI ERIC \u2014 LYDIA", "DR WILLIAM SIGILAI \u2014 LYDIA", "DR EUGENE GENGA K \u2014 LYDIA", "DR JAY SOLANKI \u2014 N/A", "AAR HEALTHCARE - WILLIAMSON \u2014 GRACE", "DR ODUOR OWINO (P. A) \u2014 LYDIA", "FERTILITY POINT \u2014 N/A", "DR ONDIEGE JAMES \u2014 GRACE", "DR KEAGAN KIRUGO \u2014 LYDIA", "DR CHRISTOPHER KYALO (C K) MUSAU \u2014 STELLA", "DR ETAU EKWOM \u2014 STELLA", "DR MARU \u2014 N/A", "DR LANGAT EVA \u2014 N/A", "DR KAMAU NJOROGE \u2014 N/A", "DR MUTIE T. MBELE \u2014 STELLA", "DR KIOKO HENRY \u2014 LYDIA", "THE NAIROBI HOSPITAL \u2014 STELLA", "DR SULE KRISTINA \u2014 LYDIA", "DR JANE MACHIRA \u2014 LYDIA", "EQUITY AFIA \u2014 GRACE", "DR SHITSAMA SYLVIA \u2014 LYDIA", "DR AJUA ALEMANJI NKENJ \u2014 LYDIA", "DR ASIMBA MESCHACH \u2014 STELLA", "PROF MULIMBA JOSPHAT \u2014 STELLA", "PROF OBURRA HERBERT OUMA \u2014 STELLA", "KOMAROCK MODERN \u2014 N/A", "DR MURAGE MARTIN \u2014 N/A", "AGA KHAN UNIVERSITY HOSPITAL \u2014 N/A", "DR FRED SITATI \u2014 STELLA", "AAR HEALTHCARE \u2014 N/A", "KENYA AIRWAYS PRIDE CLINIC \u2014 LYDIA", "DR PATRICK WABOMBA \u2014 LYDIA", "DR KAMAU KABEU (J.K) \u2014 STELLA", "DR WANJALA NANGOLE \u2014 STELLA", "DR EDWARD OSEWE \u2014 STELLA", "DR NGOLOBE AMANDA \u2014 LYDIA", "DR KIMANI \u2014 N/A", "DR KIKO MARY NDUKU \u2014 N/A", "DR YUKO ELAINE \u2014 LYDIA", "DR WANYOIKE MARTIN GICHUHI \u2014 STELLA", "DR JUMA PHOEBE \u2014 LYDIA", "DR MIANO PAUL \u2014 N/A", "DR KIBUGA GEOFREY C \u2014 LYDIA", "DR HANNA WANGUI WANYIKA \u2014 LYDIA", "IVORY HEALTH SOLUTIONS \u2014 N/A", "JASMINE DENTAL & MEDICAL CENTRE \u2014 N/A", "DR GITURA BENARD \u2014 LYDIA"];
+        const doctorsWithDuplicatesList = ["AAR HEALTHCARE", "AGA KHAN UNIVERSITY HOSPITAL", "ANN WERE", "CO ANTONY NGONGA", "COPTIC HOSPITAL", "DR AFULO GEORGE OMONDI G O", "DR ATONI JARED", "DR AYO S ONYANGO AYO S O", "DR BARACK ONGULO", "DR BAYA", "DR BRIDGIT MONDA", "DR BWANA OMBACHI", "DR CARNJINI YOGESWARAN", "DR COLLINS", "DR DAN KIPTOON", "DR EDITH", "DR EDNA KAMAU", "DR EDWARD OSEWE", "DR EGLAY MUKABANA", "DR ERIC", "DR ETAU EKWOM", "DR EUGENE", "DR EUGENE GENGA K", "DR GATIMU", "DR GATOBU KAWIRA", "DR GIKENYE GICHAMBIRA", "DR GITURA BENARD", "DR IKOL ADUNGO", "DR JANE KARIOKI", "DR JUMA PHOEBE", "DR KAHUHO CHRISTOPHER", "DR KAMAU KABEU J K", "DR KAMAU NJOROGE", "DR KARANU JOSEPH", "DR KEAGAN KIRUGO", "DR KIBUGA GEOFREY C", "DR KIKO MARY NDUKU", "DR KIMANI", "DR KINYANJUI DAVID G", "DR LABAN NATWATI EABL", "DR LANGAT EVA", "DR MACHIRA", "DR MAILU JEFF", "DR MANDI", "DR MARU", "DR MATIVO PETER MUTISYA", "DR MAUREEN OGANGA", "DR MIANO PAUL", "DR MOGAKA", "DR MONDA BRIDGIT", "DR MOTURI GEORGE FORTIS KIDNEY", "DR MUGAMBI ERIC", "DR MUGU ARTHUR", "DR MUGWE ALEX", "DR MUHINDI WANJUGU", "DR MUNGUTI CECILIA", "DR MUTIE T MBELE", "DR MUTISO", "DR NDEGE KINOTI", "DR NDEGWA MWENDA", "DR NDUNGU ALEX", "DR NGARE STANLEY", "DR NGAYU GODFREY", "DR NGOLOBE AMANDA", "DR NGOLOBE MATILDA", "DR NJOGU PAUL", "DR NYAGA SAMUEL", "DR NZAMU IRENE NDIRITU", "DR OBURU EZEKIEL", "DR ODONGO CALISTO", "DR ODUOR OWINO P A", "DR OKWIRI", "DR ONDIEGE JAMES", "DR OWENDE PHILOMENA", "DR PATRICK WABOMBA", "DR PETER O OYIRO", "DR RAJESH CHAUDHARY", "DR ROSE KIARIE", "DR SAMMY KYALO", "DR SAMUEL WACHIRA", "DR SULE KRISTINA", "DR TALENG", "DR THIKRA SHARIF", "DR WANYOIKE MARTIN GICHUHI", "DR WILLIAM SIGILAI", "DR YUKO ELAINE", "DR ZACHARY NYABUTI", "EQUITY AFIA KAWANGARE", "EQUITY AFIA NGONG ROAD", "HEART HEALTHCARE", "HEATHGATE HEALTHCARE", "HIFU CO MAINA NGOIGO", "IVORY NDEGE", "JASMINE DENTAL MEDICAL CENTRE", "KENYA AIRWAYS PRIDE CLINIC", "KENYATTA NATIONAL HOSPITAL", "KGOMOTSO LOUISA MOGAPI", "KHAEMBA", "KLINIC REVERSA", "KOMAROCK MODERN", "KQ MEDICAL CENTRE", "LIONS SIGHT FIRST EYE HOSPITAL", "LONDON DIALYSIS", "MANDUKU", "MAXIVISION HEALTHCARE", "MERIDIAN MEDICAL CENTRE", "MIRAZI", "MO BISHAR ALI", "MR MULIRA JOSPHAT", "MR OLUOCH D OLUNYA", "MYER KIDNEY", "NAIROBI EYE HOSPITAL", "NAIROBI SPINE", "PRIDE CLINIC", "PROF ATINGA JOHN E O", "PROF GAKUU MENELIC HOSPITAL", "PROF MULIMBA JOSPHAT", "PROF OBURRA HERBERT OUMA", "PROF OYOO OMONDI", "PROF TIMOTHY K BYAKIKA", "RFH", "SELF", "ST PAUL S HOSPITAL", "STRATHMORE MEDICAL CENTER", "TAVETA MEDICARE", "THAIRU", "THE MEDHAT GYNAECOLOGY CANCER CENTER", "THE NAIROBI HOSPITAL", "THE NAIROBI WOMEN S HOSPITAL", "UNKNOWN", "UPPERHILL GASTRO CLINIC"];
+        const doctorValues = [197, 80, 66, 61, 58, 42, 37, 36, 36, 31, 31, 29, 21, 21, 20, 20, 20, 18, 17, 15, 15, 13, 12, 12, 12, 12, 11, 11, 11, 11, 11, 11, 10, 10, 10, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6];
+
+        const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
+        const lowValues = tableRows.map((row) => {
+            const cells = row.querySelectorAll('td');
+            const value = Number(cells[cells.length - 1]?.textContent || 0);
+            return Number.isFinite(value) ? value : 0;
+        });
+        const totalLow = lowValues.reduce((sum, value) => sum + value, 0);
+        const totalHigh = doctorValues.reduce((sum, value) => sum + value, 0);
+        const totalUnique = totalLow + totalHigh;
+        const totalDoctors = doctorValues.length + lowValues.length;
+        const totalRows = Number(document.getElementById('kpiTotalPatients').textContent.replace(/,/g, '')) || totalUnique;
+        const duplicateRecords = Math.max(totalRows - totalUnique, 0);
+        const duplicatePct = totalRows ? (duplicateRecords / totalRows) * 100 : 0;
+        const doctorsWithDuplicates = doctorsWithDuplicatesList.length;
+        const oneReferralDoctors = lowValues.filter((value) => value === 1).length;
+
+        const pctHigh = totalUnique ? (totalHigh / totalUnique) * 100 : 0;
+        const pctDoctorsHigh = totalDoctors ? (doctorValues.length / totalDoctors) * 100 : 0;
+        const pctOneReferral = totalDoctors ? (oneReferralDoctors / totalDoctors) * 100 : 0;
+        const pctDoctorsWithDuplicates = totalDoctors ? (doctorsWithDuplicates / totalDoctors) * 100 : 0;
+
+        document.getElementById('summaryUniquePatients').textContent = totalUnique.toLocaleString();
+        document.getElementById('summaryDoctors').textContent = totalDoctors.toLocaleString();
+        document.getElementById('summaryPctHigh').textContent = `${pctHigh.toFixed(1)}%`;
+        document.getElementById('summaryPareto').textContent = `${pctDoctorsHigh.toFixed(1)}%`;
+        document.getElementById('kpiTotalDoctors').textContent = totalDoctors.toLocaleString();
+        document.getElementById('kpiUniquePatients').textContent = totalUnique.toLocaleString();
+        document.getElementById('kpiDuplicateRecords').textContent = duplicateRecords.toLocaleString();
+        document.getElementById('kpiDuplicatePct').textContent = `${duplicatePct.toFixed(1)}%`;
+        document.getElementById('kpiDoctorDuplicatePct').textContent = `${pctDoctorsWithDuplicates.toFixed(1)}%`;
+
+        const canvas = document.getElementById('doctorChart');
+        const chartHeight = (doctorLabels.length * 22) + 'px';
+        canvas.closest('.chart-wrap').style.height = chartHeight;
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: doctorLabels,
+                datasets: [{
+                    label: 'Unique Patients',
+                    data: doctorValues,
+                    backgroundColor: '#2563eb',
+                    barThickness: 10,
+                    maxBarThickness: 10,
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'right',
+                        color: '#111827',
+                        font: { size: 10 },
+                        formatter: (value) => value
+                    }
+                },
+                scales: {
+                    x: { beginAtZero: true }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
+</body>
+
+</html>
